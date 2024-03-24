@@ -1,4 +1,5 @@
 from src.AddressBook import AddressBook
+from abc import ABC, abstractmethod
 import logging
 
 # Створити абстрактний клас бота (ABC, @abstractmethod) AbstractBot -> add, hello, exit
