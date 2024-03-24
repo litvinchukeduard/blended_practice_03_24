@@ -1,6 +1,20 @@
 from src.AddressBook import AddressBook
 import logging
 
+# Створити абстрактний клас бота (ABC, @abstractmethod) AbstractBot -> add, hello, exit
+class AbstractBot(ABC):
+    @abstractmethod
+    def exit(self):
+        pass
+
+    def all(self, *args, addressbook):
+        return addressbook
+    @abstractmethod
+    def add(self, *args, addressbook):
+        pass
+
+# Створити бот українською мовою та англійською мовою UkranianBot, EnglishBot
+
 logging.basicConfig(
     format='%(asctime)s %(message)s',
     level=logging.DEBUG,
