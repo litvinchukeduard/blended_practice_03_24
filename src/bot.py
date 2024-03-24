@@ -1,4 +1,12 @@
 from src.AddressBook import AddressBook
+import logging
+
+logging.basicConfig(
+    format='%(asctime)s %(message)s',
+    level=logging.DEBUG,
+        handlers=[
+        logging.FileHandler("program.log")
+    ])
 
 def parse_input(user_input):
     cmd, *args = user_input.strip().split(' ')
@@ -12,6 +20,7 @@ def bot():
         if command == 'add':
             name, phone = args
             addressBook.update({name: phone})
+            logging.info(f' User added: {name} - {phone}')
             print('User added!')
         elif command == 'all':
             print(addressBook)
