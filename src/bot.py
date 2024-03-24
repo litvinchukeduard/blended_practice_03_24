@@ -18,10 +18,14 @@ def bot():
         user_input = input('>>> ')
         command, *args = parse_input(user_input)
         if command == 'add':
-            name, phone = args
-            addressBook.update({name: phone})
-            logging.info(f' User added: {name} - {phone}')
-            print('User added!')
+            try:
+                name, phone = args 
+                addressBook.update({name: phone})
+                logging.info(f' User added: {name} - {phone}')
+                print('User added!')
+            except Exception:
+                logging.warning(f'User not added')
+            
         elif command == 'all':
             print(addressBook)
         elif command in ['exit', 'bye']:
