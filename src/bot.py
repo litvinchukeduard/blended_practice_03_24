@@ -15,6 +15,28 @@ class AbstractBot(ABC):
         pass
 
 # Створити бот українською мовою та англійською мовою UkranianBot, EnglishBot
+class UkrBot(AbstractBot):
+
+    def exit(self):
+        return 'До побачення'
+    
+    def add(self, args, addressbook):
+        name, phone = args 
+        addressbook.update({name: phone})
+        logging.info(f' User added: {name} - {phone}')
+        return 'Користувача додано!'
+    
+class EngBot(AbstractBot):
+
+    def exit(self):
+        return 'Good bye'
+    
+    def add(self, args, addressbook):
+        name, phone = args 
+        addressbook.update({name: phone})
+        logging.info(f' User added: {name} - {phone}')
+        return 'User added!'
+
 
 logging.basicConfig(
     format='%(asctime)s %(message)s',
@@ -29,20 +51,26 @@ def parse_input(user_input):
 
 def bot():
     addressBook = AddressBook()
+    user_input = int(input('Виберіть мову: 1 - укр 2 - англ'))
+    if user_input == 1:
+        bot = UkrBot()
+    else:
+        bot = EngBot()
+
     while True:
         user_input = input('>>> ')
         command, *args = parse_input(user_input)
         if command == 'add':
             try:
-                name, phone = args 
-                addressBook.update({name: phone})
-                logging.info(f' User added: {name} - {phone}')
-                print('User added!')
+                print(bot.add(args,addressBook))
+            
+
             except Exception:
                 logging.warning(f'User not added')
             
         elif command == 'all':
             print(addressBook)
         elif command in ['exit', 'bye']:
-            print('Good bye!')
+            print(bot.exit())
             break
+        
